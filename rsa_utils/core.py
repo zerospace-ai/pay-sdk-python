@@ -134,3 +134,62 @@ def value_as_string(element) -> str:
 
     # Other cases (None, bool, etc.)
     return ""
+
+
+def value_as_string_new(element):
+    """
+    Try to parse a JSON element into different types and return its string representation.
+    """
+
+    # If it's JSON null
+    if element == "null" or element is None:
+        return ""
+
+    # Try parsing as bool
+    try:
+        as_bool = json.loads(element)
+        if isinstance(as_bool, bool):
+            return str(as_bool).lower()  # match Go's strconv.FormatBool
+    except Exception:
+        pass
+
+    # Try parsing as number (int or float)
+    try:
+        as_number = json.loads(element)
+        if isinstance(as_number, (int, float)):
+            return str(as_number)
+    except Exception:
+        pass
+
+    # Try parsing as string
+    try:
+        as_string = json.loads(element)
+        if isinstance(as_string, str):
+            return as_string
+    except Exception:
+        pass
+
+    # Try parsing as object (dict)
+    try:
+        as_object = json.loads(element)
+        if isinstance(as_object, dict):
+            keys = sorted(as_object.keys(), key=lambda x: x.lower())
+            buffer = []
+            for k in keys:
+                buffer.append(value_as_string_new(json.dumps(as_object[k])))
+            return "".join(buffer)
+    except Exception:
+        pass
+
+    # Try parsing as array (list)
+    try:
+        as_array = json.loads(element)
+        if isinstance(as_array, list):
+            buffer = []
+            for item in as_array:
+                buffer.append(value_as_string_new(json.dumps(item)))
+            return "".join(buffer)
+    except Exception:
+        pass
+
+    return ""
