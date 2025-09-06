@@ -53,7 +53,7 @@ RsaPrivateKey: ""
 
 以用户创建为例。
 
-```python
+```
 
     open_id = config.get("UserOpenId")
 
@@ -65,7 +65,7 @@ RsaPrivateKey: ""
 
 ```
 
-```python
+```
     # 1. Convert struct to map
     try:
         map_data = struct_to_dict(req)
@@ -104,7 +104,7 @@ RsaPrivateKey: ""
 
 ### 1.4 填充并发起请求 🚀
 
-```python
+```
     final_url = constants.DEV_NET_ENDPOINT + constants.PATH_CREATE_USER
 
     try:
@@ -129,7 +129,7 @@ RsaPrivateKey: ""
 
 ### 1.5 验证解析返回数据 ✅
 
-```python
+```
     try:
         rsp_create_user = json.loads(body)
     except Exception as e:

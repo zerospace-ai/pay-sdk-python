@@ -30,7 +30,7 @@ RsaPrivateKey: ""
 
 2. 구성 파일을 로드하고 API 객체를 생성합니다.
 
-```python
+```
 
 	config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
     try:
@@ -53,7 +53,7 @@ RsaPrivateKey: ""
 
 사용자 생성을 예로 들어 보겠습니다.
 
-```python
+```
 
     open_id = config.get("UserOpenId")
 
@@ -65,7 +65,7 @@ RsaPrivateKey: ""
 
 ```
 
-```python
+```
     # 1. Convert struct to map
     try:
         map_data = struct_to_dict(req)
@@ -104,7 +104,7 @@ RsaPrivateKey: ""
 
 ### 1.4 요청 채우기 및 시작 🚀
 
-```python
+```
     final_url = constants.DEV_NET_ENDPOINT + constants.PATH_CREATE_USER
 
     try:
@@ -129,7 +129,7 @@ RsaPrivateKey: ""
 
 ### 1.5 반환 데이터 검증 및 파싱 ✅
 
-```python
+```
     try:
         rsp_create_user = json.loads(body)
     except Exception as e:

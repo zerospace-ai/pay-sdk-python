@@ -30,7 +30,7 @@ RsaPrivateKey: ""
 
 2. 加載配置文件並創建 API 物件。
 
-```python
+```
 
 	config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
     try:
@@ -53,7 +53,7 @@ RsaPrivateKey: ""
 
 讓我們以用戶創建為例。
 
-```python
+```
 
     open_id = config.get("UserOpenId")
 
@@ -65,7 +65,7 @@ RsaPrivateKey: ""
 
 ```
 
-```python
+```
     # 1. Convert struct to map
     try:
         map_data = struct_to_dict(req)
@@ -104,7 +104,7 @@ RsaPrivateKey: ""
 
 ### 1.4 填充並發起請求 🚀
 
-```python
+```
     final_url = constants.DEV_NET_ENDPOINT + constants.PATH_CREATE_USER
 
     try:
@@ -129,7 +129,7 @@ RsaPrivateKey: ""
 
 ### 1.5 驗證解析返回數據 ✅
 
-```python
+```
     try:
         rsp_create_user = json.loads(body)
     except Exception as e:

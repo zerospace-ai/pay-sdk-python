@@ -30,7 +30,7 @@ RsaPrivateKey: ""
 
 2. 設定ファイルをロードし、APIオブジェクトを作成します。
 
-```python
+```
 
 	config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
     try:
@@ -53,7 +53,7 @@ RsaPrivateKey: ""
 
 ユーザー作成を例にします。
 
-```python
+```
 
     open_id = config.get("UserOpenId")
 
@@ -65,7 +65,7 @@ RsaPrivateKey: ""
 
 ```
 
-```python
+```
     # 1. Convert struct to map
     try:
         map_data = struct_to_dict(req)
@@ -104,7 +104,7 @@ RsaPrivateKey: ""
 
 ### 1.4 リクエストの入力と開始 🚀
 
-```python
+```
     final_url = constants.DEV_NET_ENDPOINT + constants.PATH_CREATE_USER
 
     try:
@@ -129,7 +129,7 @@ RsaPrivateKey: ""
 
 ### 1.5 返却データの検証と解析 ✅
 
-```python
+```
     try:
         rsp_create_user = json.loads(body)
     except Exception as e:

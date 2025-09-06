@@ -92,7 +92,7 @@ Write-Output ((Get-Content rsa_public_key.pem | Where-Object {$_ -notmatch "^---
 
 ### 🛠️ 3. SDKインスタンスの作成
 
-```python
+```
     config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
     try:
         with open(config_path, "r", encoding="utf-8") as f:

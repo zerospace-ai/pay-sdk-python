@@ -30,7 +30,7 @@ RsaPrivateKey: ""
 
 2. Cargue el archivo de configuración y cree el objeto API.
 
-```python
+```
 
 	config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
     try:
@@ -53,7 +53,7 @@ RsaPrivateKey: ""
 
 Usemos la creación de usuario como ejemplo.
 
-```python
+```
 
     open_id = config.get("UserOpenId")
 
@@ -65,7 +65,7 @@ Usemos la creación de usuario como ejemplo.
 
 ```
 
-```python
+```
     # 1. Convert struct to map
     try:
         map_data = struct_to_dict(req)
@@ -104,7 +104,7 @@ Usemos la creación de usuario como ejemplo.
 
 ### 1.4 Rellenar e Iniciar la Solicitud 🚀
 
-```python
+```
     final_url = constants.DEV_NET_ENDPOINT + constants.PATH_CREATE_USER
 
     try:
@@ -129,7 +129,7 @@ Usemos la creación de usuario como ejemplo.
 
 ### 1.5 Verificar el análisis de los datos de retorno ✅
 
-```python
+```
     try:
         rsp_create_user = json.loads(body)
     except Exception as e:

@@ -84,57 +84,50 @@ def parse_public_key(b64_str: str) -> rsa.RSAPublicKey:
     except Exception as e:
         raise ValueError(f"parse_public_key error: {e}")
 
+def value_as_string(element: Any) -> str:
+    """
+    Recursively convert JSON value to string, supporting str/int/float/bool/object/array/None
+    """
+    if element is None:
+        return ""
+    elif isinstance(element, bool):
+        return "true" if element else "false"
+    elif isinstance(element, (int, float)):
+        return str(element)
+    elif isinstance(element, str):
+        return element
+    elif isinstance(element, dict):
+        # 按 key 排序，忽略大小写
+        sorted_keys = sorted(element.keys(), key=lambda x: x.lower())
+        return "".join(value_as_string(element[k]) for k in sorted_keys)
+    elif isinstance(element, list):
+        # 遍历数组，递归处理
+        buffer = []
+        for item in element:
+            if isinstance(item, dict):
+                # 保持对象顺序，但先按 key 排序再拼接值
+                sorted_keys = sorted(item.keys(), key=lambda x: x.lower())
+                buffer.append("".join(value_as_string(item[k]) for k in sorted_keys))
+            else:
+                buffer.append(value_as_string(item))
+        return "".join(buffer)
+    else:
+        return ""
 
-def to_string_map(j_str: bytes) -> dict[str, str]:
+
+def to_string_map(j_str: bytes) -> Dict[str, str]:
     """
     :param j_str: JSON bytes
     :return: dict[str, str]
     """
-    res_map: dict[str, str] = {}
+    res_map: Dict[str, str] = {}
     try:
-        json_object: dict = json.loads(j_str.decode("utf-8"))
+        json_object: Dict[str, Any] = json.loads(j_str.decode("utf-8"))
         for key, value in json_object.items():
             res_map[key] = value_as_string(value)
     except Exception:
         pass
     return res_map
-
-
-def value_as_string(element) -> str:
-    """
-    Recursively convert JSON value to string, supporting str/int/object/array
-    """
-    # If it's a string
-    if isinstance(element, str):
-        return element
-
-    # If it's a number (int/float)
-    if isinstance(element, (int, float)):
-        return str(element)
-
-    # If it's an object (dict)
-    if isinstance(element, dict):
-        sorted_keys = sorted(element.keys(), key=lambda x: x.lower())
-        buffer = []
-        for key in sorted_keys:
-            buffer.append(value_as_string(element[key]))
-        return "".join(buffer)
-
-    # If it's an array (list)
-    if isinstance(element, list):
-        merged = {}
-        for item in element:
-            if isinstance(item, dict):
-                for key, value in item.items():
-                    merged[key] = value_as_string(value)
-        buffer = []
-        for key in sorted(merged.keys()):
-            buffer.append(merged[key])
-        return "".join(buffer)
-
-    # Other cases (None, bool, etc.)
-    return ""
-
 
 def value_as_string_new(element):
     """
